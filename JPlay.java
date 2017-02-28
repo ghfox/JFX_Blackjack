@@ -29,7 +29,6 @@ public class JPlay extends Application {
         primaryStage.setScene(sceneDeal);
         primaryStage.show();
     }    
- 
 }
 
 

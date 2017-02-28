@@ -1,3 +1,4 @@
+
 import java.util.*;
 import java.lang.*;
 import javafx.application.*;
@@ -43,7 +44,6 @@ public class DealStage extends Pane
             }
         });
         
-        
         //Screen Game
         pHand = new Group();
         buttons = new Group();
@@ -71,8 +71,6 @@ public class DealStage extends Pane
                 betDisp.setText("Bet: $" + String.format("%3.2f",new_val));
             }
         });
-        
-        
         
         //Hit
         Button btn_Hit = new Button();
@@ -137,5 +135,4 @@ public class DealStage extends Pane
         getChildren().add(text);
         requestLayout();    
     }
-
 }

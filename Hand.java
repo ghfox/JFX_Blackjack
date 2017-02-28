@@ -1,5 +1,5 @@
-import java.util.*;
 
+import java.util.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.stage.*;
@@ -9,6 +9,7 @@ import javafx.scene.shape.*;
 import javafx.scene.text.*;
 
 public class Hand{
+    
     private ArrayList<Card> cards;
     private int aces;
     private boolean cover;

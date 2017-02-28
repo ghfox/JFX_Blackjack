@@ -1,6 +1,6 @@
+
 import java.util.*;
 import java.lang.*;
-
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.stage.*;
@@ -82,7 +82,6 @@ public class Card {
         g.getChildren().add(new Text(15,20,face));
         g.getChildren().add(new Text(50,130,face));
         g.getChildren().add(new Text(25,45,getSuitImg()));
-
         return g;
     }
 }
