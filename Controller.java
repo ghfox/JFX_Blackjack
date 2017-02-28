@@ -16,18 +16,28 @@ public class Controller{
             stage.showButtons(false);
         }
         if(msg.equals("DealerBust")){
+            money += (bet * 2);
             stage.showButtons(false);
         }
         if(msg.equals("Compare")){
             stage.showButtons(false);
             if(pHand.count() > dHand.count()){
                 System.out.println("Win");
+                money += (bet * 2);
             } else if (pHand.count() == dHand.count()) {
                 System.out.println("Push");
+                money += bet;
             }else {
                 System.out.println("Lose");
             }
         }
+        if(msg.equals("Natural")){
+            money += ((bet * 2) + (bet/2)) ;
+            stage.showButtons(false);
+        }
+        
+        stage.updateMoney(money);
+        stage.show_Game();
     }
     
     public void sendMsg(String msg, DealStage sender){
@@ -36,16 +46,17 @@ public class Controller{
         {
             pHand.addCard(deck.draw());
             stage.updatePHand(pHand.makeHand());
-            if(pHand.count() >= 21)
+            if(pHand.count() > 21)
                 sendMsg("Bust");
+            if(pHand.count() == 21)
+                sendMsg("Stand",sender);
             stage.show_Game();
         }
         
-        if(msg.equals("Start"))
-        {
-            stage = sender;
-            money = 250;
-            bet = 25;
+        if(msg.equals("Deal")){
+            bet = stage.getBet();
+            money -= bet;
+            System.out.println("Betting $" + bet + ", $" + money + " remaining");
             deck = new Deck();
             pHand = new Hand();
             dHand = new Hand();
@@ -54,12 +65,27 @@ public class Controller{
             dHand.addCard(deck.draw());
             dHand.addCard(deck.draw());
             dHand.setCover(true);
+            stage.showButtons(true);
             stage.updatePHand(pHand.makeHand());
             stage.updateDHand(dHand.makeHand());
+            stage.updateMoney(money);
+            stage.show_Game();
+            
+            if(pHand.count() == 21)
+                sendMsg("Natural");
+        }
+        
+        if(msg.equals("Start"))
+        {
+            stage = sender;
+            money = 250;
+            bet = 25;
+            stage.showButtons(false);
             stage.show_Game();
         }
         
         if(msg.equals("DblD")){
+            money -= bet;
             bet += bet;
             pHand.addCard(deck.draw());
             stage.updatePHand(pHand.makeHand());

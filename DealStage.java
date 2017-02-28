@@ -23,6 +23,8 @@ public class DealStage extends Pane
     private DealStage me;
     private Slider bet;
     private Group text;
+    private Group start;
+    private Text money;
     
     public DealStage(Controller controller){
         super();
@@ -49,8 +51,9 @@ public class DealStage extends Pane
         buttons = new Group();
         dHand = new Group();
         text = new Group();
+        start = new Group();
         
-        //bet
+        //bet slider
         bet = new Slider(5,100,25);       
         bet.setBlockIncrement(25);
         bet.setMinorTickCount(1);
@@ -60,7 +63,22 @@ public class DealStage extends Pane
         bet.setSnapToTicks(true);
         bet.setOrientation(Orientation.VERTICAL);
         bet.relocate(10,280);
+        start.getChildren().add(bet);
         
+        //deal button
+        Button btn_Deal = new Button();
+        start.getChildren().add(btn_Deal);
+        btn_Deal.relocate(175,470);
+        btn_Deal.setText("Deal");
+        btn_Deal.setOnAction(new EventHandler<ActionEvent>() {
+ 
+            @Override
+            public void handle(ActionEvent event) {
+                controller.sendMsg("Deal",me);
+            }
+        });
+        
+        //bet Text
         Text betDisp = new Text();
         betDisp.setText("Bet: $25.00");
         betDisp.relocate(10, 225);
@@ -71,6 +89,13 @@ public class DealStage extends Pane
                 betDisp.setText("Bet: $" + String.format("%3.2f",new_val));
             }
         });
+        
+        //Money Text
+        Text moneyDisp = new Text();
+        money = moneyDisp;
+        moneyDisp.setText("Money: $250.00");
+        moneyDisp.relocate(10, 238);
+        text.getChildren().add(moneyDisp);
         
         //Hit
         Button btn_Hit = new Button();
@@ -112,6 +137,14 @@ public class DealStage extends Pane
         });
     }
     
+    public int getBet(){
+        return Integer.valueOf(String.format("%3.0f",bet.getValue()).trim());
+    }
+    
+    public void updateMoney(int newMon){
+        money.setText("Money: $" + newMon + ".00");
+    }
+    
     public void updatePHand(Group hand){
         pHand = hand;
         pHand.relocate(50,280);
@@ -124,6 +157,7 @@ public class DealStage extends Pane
     
     public void showButtons(boolean tf){
         buttons.setVisible(tf);
+        start.setVisible(!tf);
     }
     
     public void show_Game(){
@@ -131,7 +165,7 @@ public class DealStage extends Pane
         getChildren().add(pHand);
         getChildren().add(dHand);
         getChildren().add(buttons);
-        getChildren().add(bet);
+        getChildren().add(start);
         getChildren().add(text);
         requestLayout();    
     }
