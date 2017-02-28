@@ -13,6 +13,7 @@ public class DealStage extends Pane
     private ArrayList<Node> Screen_K;
     private Group buttons;
     private Group pHand;
+    private Group dHand;
     private DealStage me;
     
     public DealStage(Controller controller){
@@ -36,18 +37,47 @@ public class DealStage extends Pane
         });
         
         
-        //Screen Next
+        //Screen Game
         pHand = new Group();
         buttons = new Group();
-        Button btn_Next = new Button();
-        buttons.getChildren().add(btn_Next);
-        btn_Next.relocate(25,470);
-        btn_Next.setText("Hit");
-        btn_Next.setOnAction(new EventHandler<ActionEvent>() {
+        dHand = new Group();
+        
+        //Hit
+        Button btn_Hit = new Button();
+        buttons.getChildren().add(btn_Hit);
+        btn_Hit.relocate(25,470);
+        btn_Hit.setText("Hit");
+        btn_Hit.setOnAction(new EventHandler<ActionEvent>() {
  
             @Override
             public void handle(ActionEvent event) {
                 controller.sendMsg("Hit",me);
+            }
+        });
+        
+        //Stand
+        Button btn_Stand = new Button();
+        buttons.getChildren().add(btn_Stand);
+        btn_Stand.relocate(60,470);
+        btn_Stand.setText("Stand");
+        btn_Stand.setOnAction(new EventHandler<ActionEvent>() {
+ 
+            @Override
+            public void handle(ActionEvent event) {
+                controller.sendMsg("Stand",me);
+            }
+        });
+        
+        //Double
+        Button btn_Dbl = new Button();
+        buttons.getChildren().add(btn_Dbl);
+        btn_Dbl.relocate(110,470);
+        btn_Dbl.setText("Dbl Down");
+        btn_Dbl.setOnAction(new EventHandler<ActionEvent>() {
+ 
+            @Override
+            public void handle(ActionEvent event) {
+                controller.sendMsg("DblD",me);
             }
         });
     }
@@ -55,17 +85,20 @@ public class DealStage extends Pane
     public void updatePHand(Group hand){
         pHand = hand;
         pHand.relocate(50,280);
-        show_Game();
-        
+    }
+    
+    public void updateDHand(Group hand){
+        dHand = hand;
+        dHand.relocate(50,50);
     }
     
     
     public void show_Game(){
         getChildren().clear();
         getChildren().add(pHand);
+        getChildren().add(dHand);
         getChildren().add(buttons);
-        requestLayout();
-      
+        requestLayout();    
     }
 
 }

@@ -2,7 +2,7 @@
 public class Controller{
 
     Deck deck;
-    Hand pHand;
+    Hand pHand, dHand;
 
     public Controller() {
         System.out.println("Controller Created");
@@ -18,15 +18,22 @@ public class Controller{
         {
             pHand.addCard(deck.draw());
             sender.updatePHand(pHand.makeHand());
+            sender.show_Game();
         }
         
         if(msg.equals("Start"))
         {
             deck = new Deck();
             pHand = new Hand();
+            dHand = new Hand();
             pHand.addCard(deck.draw());
             pHand.addCard(deck.draw());
+            dHand.addCard(deck.draw());
+            dHand.addCard(deck.draw());
+            dHand.setCover(true);
             sender.updatePHand(pHand.makeHand());
+            sender.updateDHand(dHand.makeHand());
+            sender.show_Game();
         }
     }
 }

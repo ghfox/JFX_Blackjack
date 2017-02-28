@@ -11,10 +11,12 @@ import javafx.scene.text.*;
 public class Hand{
     private ArrayList<Card> cards;
     private int aces;
+    private boolean cover;
     
     public Hand(){
         this.cards = new ArrayList<Card>();
         aces = 0;
+        this.cover = false;
     }
     
     public int addCard(Card newCard){
@@ -43,6 +45,10 @@ public class Hand{
         return curCount;
     }
     
+    public void setCover(boolean tf){
+        cover = tf;
+    }
+    
     public Group makeHand()
     {
         int x = 40;
@@ -53,6 +59,15 @@ public class Hand{
             Group card = new Group(cards.get(i).makeCard());
             card.relocate(x,y);
             g.getChildren().add(card);
+            
+            if(cover && i == 0){
+                Rectangle r = new Rectangle();
+                r.setWidth(75);
+                r.setHeight(150);
+                r.setFill(Color.GREY);
+                r.relocate(x,y);
+                g.getChildren().add(r);
+            }
             x += 80;
         }
         return g;
