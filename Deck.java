@@ -13,8 +13,8 @@ public class Deck{
         
         while(deck.size() > 0)
             tempDeck.add(deck.remove(ThreadLocalRandom.current().nextInt(0, deck.size())));
-        
-        deck = tempDeck;
+        while(tempDeck.size() > 0)
+            deck.add(tempDeck.remove(ThreadLocalRandom.current().nextInt(0, tempDeck.size())));
     }
     
     public Card draw(){
