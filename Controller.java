@@ -13,29 +13,37 @@ public class Controller{
     public void sendMsg(String msg){
         System.out.println("MSG :: " + msg);
         if(msg.equals("Bust")){
+            stage.setCon("Bust");
             stage.showButtons(false);
         }
         if(msg.equals("DealerBust")){
             money += (bet * 2);
+            stage.setCon("Dealer Busts, Win");
             stage.showButtons(false);
         }
         if(msg.equals("Compare")){
             stage.showButtons(false);
             if(pHand.count() > dHand.count()){
                 System.out.println("Win");
+                stage.setCon("Win");
                 money += (bet * 2);
             } else if (pHand.count() == dHand.count()) {
                 System.out.println("Push");
+                stage.setCon("Push");
                 money += bet;
             }else {
                 System.out.println("Lose");
+                stage.setCon("Loss");
             }
         }
         if(msg.equals("Natural")){
             money += ((bet * 2) + (bet/2)) ;
+            stage.setCon("Blackjack, Win");
             stage.showButtons(false);
         }
         
+        dHand.setCover(false);
+        stage.updateDHand(dHand.makeHand());
         stage.updateMoney(money);
         stage.show_Game();
     }
@@ -71,6 +79,8 @@ public class Controller{
             stage.updateMoney(money);
             stage.show_Game();
             
+            if(dHand.count() == 21)
+                sendMsg("Compare");
             if(pHand.count() == 21)
                 sendMsg("Natural");
         }

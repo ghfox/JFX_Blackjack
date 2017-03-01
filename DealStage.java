@@ -25,6 +25,7 @@ public class DealStage extends Pane
     private Group text;
     private Group start;
     private Text money;
+    private Text con;
     
     public DealStage(Controller controller){
         super();
@@ -77,6 +78,13 @@ public class DealStage extends Pane
                 controller.sendMsg("Deal",me);
             }
         });
+        
+        //(con)ditional text
+        con = new Text();
+        con.setFont(new Font(20));
+        con.setText("Choose a bet and press Deal");
+        con.relocate(140, 230);
+        start.getChildren().add(con);
         
         //bet Text
         Text betDisp = new Text();
@@ -135,6 +143,10 @@ public class DealStage extends Pane
                 controller.sendMsg("DblD",me);
             }
         });
+    }
+    
+    public void setCon(String str){
+        con.setText(str);
     }
     
     public int getBet(){
