@@ -16,7 +16,6 @@ import javafx.beans.value.ObservableValue;
 public class DealStage extends Pane
 {
     private Controller controller;
-    private ArrayList<Node> Screen_K;
     private Group buttons;
     private Group pHand;
     private Group dHand;
@@ -31,11 +30,9 @@ public class DealStage extends Pane
         super();
         this.controller = controller;
         me = this;
-        Screen_K = new ArrayList<Node>();
         
         //Screen K
         Button btn_K = new Button();
-        Screen_K.add(btn_K);
         btn_K.relocate(175,220);
         btn_K.setText("Start");
         getChildren().add(btn_K);
