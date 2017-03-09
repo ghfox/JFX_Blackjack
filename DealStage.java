@@ -1,6 +1,4 @@
 
-import java.util.*;
-import java.lang.*;
 import javafx.application.*;
 import javafx.event.*;
 import javafx.scene.*;
@@ -25,11 +23,14 @@ public class DealStage extends Pane
     private Group start;
     private Text money;
     private Text con;
+    private Chart chart;
+    private Group chartGroup;
     
     public DealStage(Controller controller){
         super();
         this.controller = controller;
         me = this;
+        chart = new Chart(250);
         
         //Screen K
         Button btn_K = new Button();
@@ -50,9 +51,11 @@ public class DealStage extends Pane
         dHand = new Group();
         text = new Group();
         start = new Group();
+        chartGroup = new Group();
+        
         
         //bet slider
-        bet = new Slider(5,100,25);       
+        bet = new Slider(5,100,25);    
         bet.setBlockIncrement(25);
         bet.setMinorTickCount(1);
         bet.setMajorTickUnit(10);
@@ -169,6 +172,10 @@ public class DealStage extends Pane
         start.setVisible(!tf);
     }
     
+    public void updateChart(int money){
+        chart.add((double)money);
+    }
+    
     public void show_Game(){
         getChildren().clear();
         getChildren().add(pHand);
@@ -176,6 +183,9 @@ public class DealStage extends Pane
         getChildren().add(buttons);
         getChildren().add(start);
         getChildren().add(text);
+        chartGroup = chart.makeChart();
+        chartGroup.relocate(500,210);
+        getChildren().add(chartGroup);
         requestLayout();    
     }
 }

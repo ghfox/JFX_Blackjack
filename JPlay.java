@@ -3,9 +3,6 @@
  * 
  * 
  */
-
-import java.util.*;
-import java.lang.*;
 import javafx.application.*;
 import javafx.event.*;
 import javafx.scene.*;
@@ -25,13 +22,8 @@ public class JPlay extends Application {
     public void start(Stage primaryStage) {
         controller = new Controller();
         primaryStage.setTitle("Cards");
-        Scene sceneDeal = new Scene(new DealStage(controller),500,500);
+        Scene sceneDeal = new Scene(new DealStage(controller),640,500);
         primaryStage.setScene(sceneDeal);
         primaryStage.show();
-    }    
-}
-
-
-
-
-
+    }
+}    

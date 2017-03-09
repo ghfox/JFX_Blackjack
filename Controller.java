@@ -45,6 +45,7 @@ public class Controller{
         dHand.setCover(false);
         stage.updateDHand(dHand.makeHand());
         stage.updateMoney(money);
+        stage.updateChart(money);
         stage.show_Game();
     }
     

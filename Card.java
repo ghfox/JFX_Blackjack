@@ -1,6 +1,4 @@
 
-import java.util.*;
-import java.lang.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.stage.*;
@@ -50,18 +48,7 @@ public class Card {
     }
     
     public Character getSuit(){
-        switch(suit) {
-            case HEART:
-                return 'H';
-            case DIAM:
-                return 'D';
-            case CLUB:
-                return 'C';
-            case SPADE:
-                return 'S';
-            default:
-                return 'X';
-        }
+        return suit.getChar();
     } 
        
     public String toString(){
