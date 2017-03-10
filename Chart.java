@@ -17,27 +17,44 @@ public class Chart{
     double min;
     double avg;
     double total;
-    private ArrayList<Double> record;
+    int hands;
+    private ArrayList<Double> record, pastRecord;
     
     public Chart(double startVal){
         max = startVal + 1;
         min = startVal - 1;
         avg = startVal;
-        total = startVal;
+        total = 0;
+        hands = 0;
         record = new ArrayList<Double>();
+        pastRecord = new ArrayList<Double>();
         record.add(startVal);
     }
     
     public void add(double newVal){
+        hands++;
         record.add(newVal);
         max = newVal > max ? newVal : max;
         min = newVal < min ? newVal : min;
         total += newVal;
-        avg = total / record.size();
+        avg = total / hands;
+        if(record.size() >= 10)
+            condenseStats();
     }
     
     public double range(){
         return Math.floor(Math.abs(max - min));
+    }
+    
+    public void condenseStats(){
+        Double cTotal = 0.0, cAvg = 0.0;
+        for(int i = 0; i < record.size(); i++)
+            cTotal += record.get(i);
+        cTotal = cTotal/record.size();
+        pastRecord.add(cTotal);
+        if(pastRecord.size() > 10)
+            pastRecord.remove(0);
+        record.clear();
     }
 
     public Group makeChart(){
@@ -53,32 +70,20 @@ public class Chart{
         g.getChildren().add(r);
         
         gc.setFill(Color.RED);
-        //gc.fillOval(0, (((record.get(record.size()-1)- min)/range())*HEIGHT - 6), 6, 6);
-        //Circle c = new Circle(0,HEIGHT - ( (record.get(0)/range())*HEIGHT ) , 6,Color.RED);
-        //g.getChildren().add(c);
-        
-        
-        
-        if(record.size() > 10)
-            for(int i = 0; i < 10; i++)
-            {
-                int iter = ((int)(record.size()/10));
-                if(iter * 10 > record.size())
-                    iter--;
-                System.out.println("I = " + i + " :: " + record.get(i*iter));
-                gc.fillOval( 10 + (10* i), HEIGHT - (int)((record.get(i * iter) - min ) / range() * HEIGHT) - 6, 6, 6);
-            }
-       
+        if(pastRecord.size() > 0)
+            for(int i = 0; i < pastRecord.size(); i++)
+                gc.fillOval( 10 + (10* i), HEIGHT - (int)((pastRecord.get(i) - min ) / range() * HEIGHT) - 6, 6, 6);
+        double avgY = HEIGHT - (int)((avg - min ) / range() * HEIGHT);
+        gc.setStroke(Color.BLUE);
+        gc.strokeLine(0, avgY, WIDTH, avgY);
         
         g.getChildren().add(can);
         Text maxT = new Text(0,0,"" + max);
         Text minT = new Text(0,HEIGHT+12,"" + min);
+        Text avgT = new Text(-20,HEIGHT/2+6,"" + (int)avg);
         g.getChildren().add(minT);
+        g.getChildren().add(avgT);
         g.getChildren().add(maxT);
-        //
-        
-        //for
-        
         return g;
     }
         
