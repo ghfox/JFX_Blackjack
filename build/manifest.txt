@@ -1,0 +1,2 @@
+Class-Path: Blackjack.jar
+Main-Class: blackjack.JPlay

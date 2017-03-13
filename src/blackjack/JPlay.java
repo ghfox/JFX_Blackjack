@@ -1,8 +1,5 @@
-/*
- * JPlay.java
- * 
- * 
- */
+ package blackjack;
+ 
 import javafx.application.*;
 import javafx.event.*;
 import javafx.scene.*;

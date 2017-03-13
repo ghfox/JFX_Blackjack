@@ -1,3 +1,4 @@
+package blackjack;
 
 public enum Suit {
     HEART(" _ _ \n( V ) \n \\ / \n  V \n", 'H'),
